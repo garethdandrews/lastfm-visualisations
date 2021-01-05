@@ -1,10 +1,16 @@
 import config
 import requests
 
+def getWeeklyChartList():
+    payload = {
+        'user': config.USER
+    }
+    return get(payload)
+
 
 def getWeeklyArtistChart(date_from, date_to):
     payload = {
-        'user': 'garethdandrews',
+        'user': config.USER,
         'from': date_from,
         'to': date_to,
         'method': 'user.getWeeklyArtistChart'
