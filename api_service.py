@@ -26,10 +26,12 @@ def get(payload):
     payload['api_key'] = config.API_KEY
     payload['format'] = 'json'
 
-    response = requests.get(url, headers=headers, params=payload)
+    res = requests.get(url, headers=headers, params=payload)
 
-    if response.status_code == 200:
-        return json.loads(response.content.decode('utf-8'))
+    if res.status_code == 200:
+        # convert the result bytes to a dictionary and remove the top level of the dictionary
+        res_dict = json.loads(res.content.decode('utf-8'))
+        return list(res_dict.values())[0]
     else:
         return {}
 
