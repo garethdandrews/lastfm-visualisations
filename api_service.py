@@ -3,23 +3,27 @@ import requests
 import json
 from time import sleep
 
-def user_get_top_artists():
+def user_get_info():
     return get({
-        'user': config.USER,
-        'period': 'overall',
-        'limit': 10
+        'method': 'user.getInfo'
+    })
+
+
+def user_get_top_artists(period):
+    return get({
+        'period': period,
+        'method': 'user.getTopArtists'
     })
 
 
 def user_get_weekly_chart_list():
     return get({
-        'user': config.USER
+        'method': 'user.getWeeklyChartList'
     })
 
 
 def user_get_weekly_artist_chart(date_from, date_to):
     return get({
-        'user': config.USER,
         'from': date_from,
         'to': date_to,
         'method': 'user.getWeeklyArtistChart'
@@ -30,6 +34,7 @@ def get(payload):
     headers = {'User-Agent': config.USER_AGENT}
     url = 'http://ws.audioscrobbler.com/2.0/'
 
+    payload['user'] = config.USER
     payload['api_key'] = config.API_KEY
     payload['format'] = 'json'
 
