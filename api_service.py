@@ -1,6 +1,8 @@
 import config
 import requests
 import json
+from time import sleep
+
 
 def getWeeklyChartList():
     payload = {
@@ -27,6 +29,7 @@ def get(payload):
     payload['format'] = 'json'
 
     res = requests.get(url, headers=headers, params=payload)
+    sleep(0.25)
 
     if res.status_code == 200:
         # convert the result bytes to a dictionary and remove the top level of the dictionary
