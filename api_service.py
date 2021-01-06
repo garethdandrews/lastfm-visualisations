@@ -3,22 +3,27 @@ import requests
 import json
 from time import sleep
 
+def user_get_top_artists():
+    return get({
+        'user': config.USER,
+        'period': 'overall',
+        'limit': 10
+    })
 
-def getWeeklyChartList():
-    payload = {
+
+def user_get_weekly_chart_list():
+    return get({
         'user': config.USER
-    }
-    return get(payload)
+    })
 
 
-def getWeeklyArtistChart(date_from, date_to):
-    payload = {
+def user_get_weekly_artist_chart(date_from, date_to):
+    return get({
         'user': config.USER,
         'from': date_from,
         'to': date_to,
         'method': 'user.getWeeklyArtistChart'
-    }
-    return get(payload)
+    })
 
 
 def get(payload):
