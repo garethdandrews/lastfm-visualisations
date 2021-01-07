@@ -22,10 +22,10 @@ def user_get_weekly_chart_list():
     })
 
 
-def user_get_weekly_artist_chart(date_from, date_to):
+def user_get_weekly_artist_chart(week):
     return get({
-        'from': date_from,
-        'to': date_to,
+        'from': week['from'],
+        'to': week['to'],
         'method': 'user.getWeeklyArtistChart'
     })
 

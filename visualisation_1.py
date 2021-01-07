@@ -18,9 +18,17 @@ print("Registered(datetime): " + str(unix_to_datetime(registered)))
 weekly_chart_list = api_service.user_get_weekly_chart_list()
 
 registered = int(registered)
-for week in weekly_chart_list['chart']:
+for n, week in enumerate(weekly_chart_list['chart']):
     if registered  >= int(week['from']) and registered <= int(week['to']):
         break
 
 print("From: " + str(unix_to_datetime(week['from'])))
 print("To: " + str(unix_to_datetime(week['to'])))
+
+registered_week = weekly_chart_list['chart'][n]
+
+print(registered_week)
+print(str(unix_to_datetime(registered_week['from'])))
+
+weekly_artist_chart = api_service.user_get_weekly_artist_chart(registered_week)
+print(weekly_artist_chart)
