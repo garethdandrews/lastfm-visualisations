@@ -26,9 +26,10 @@ for n, week in enumerate(weekly_chart_list['chart']):
         
     if user_registered:
         # look at weekly artist charts
+        print("hello")
 
 
-registered_week = weekly_chart_list['chart'][n]
+registered_week = weekly_chart_list['chart'][629]
 
 print(registered_week)
 print(str(unix_to_datetime(registered_week['from'])))
@@ -37,6 +38,8 @@ weekly_artist_chart = api_service.user_get_weekly_artist_chart(registered_week)
 print(weekly_artist_chart)
 
 df = pd.DataFrame(columns=['week_from',top_artist])
-df.loc[0] = [str(unix_to_datetime(week['from'])), 1000]
+top_artist_plays = next(artist['playcount'] for artist in weekly_artist_chart['artist'] if artist['name'] == top_artist)
+print(top_artist_plays)
+# df.loc[0] = [str(unix_to_datetime(week['from'])), 1000]
 
 print(df.head())
