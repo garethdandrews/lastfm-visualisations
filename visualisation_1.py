@@ -18,13 +18,15 @@ print("Registered(datetime): " + str(unix_to_datetime(registered)))
 # find the week the user registered
 weekly_chart_list = api_service.user_get_weekly_chart_list()
 
+user_registered = False
 registered = int(registered)
 for n, week in enumerate(weekly_chart_list['chart']):
     if registered  >= int(week['from']) and registered <= int(week['to']):
-        break
+        user_registered = True
+        
+    if user_registered:
+        # look at weekly artist charts
 
-print("From: " + str(unix_to_datetime(week['from'])))
-print("To: " + str(unix_to_datetime(week['to'])))
 
 registered_week = weekly_chart_list['chart'][n]
 
