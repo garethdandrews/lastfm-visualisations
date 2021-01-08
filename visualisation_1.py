@@ -1,5 +1,6 @@
 import api_service
 from helper import unix_to_datetime
+import pandas as pd
 
 # find users top artist
 top_artists = api_service.user_get_top_artists('overall')
@@ -32,3 +33,8 @@ print(str(unix_to_datetime(registered_week['from'])))
 
 weekly_artist_chart = api_service.user_get_weekly_artist_chart(registered_week)
 print(weekly_artist_chart)
+
+df = pd.DataFrame(columns=['week_from',top_artist])
+df.loc[0] = [str(unix_to_datetime(week['from'])), 1000]
+
+print(df.head())
