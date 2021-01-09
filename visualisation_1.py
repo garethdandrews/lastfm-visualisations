@@ -6,7 +6,7 @@ import pandas as pd
 top_artists = api_service.user_get_top_artists('overall',10)
 top_artists = [artist['name'] for artist in top_artists['artist']]
 
-df = pd.DataFrame(columns=['week_from']+top_artists)
+df = pd.DataFrame(columns=['Week']+top_artists)
 
 # find the week the user registered
 info = api_service.user_get_info()
@@ -29,4 +29,4 @@ for n, week in enumerate(weekly_chart_list['chart']):
         i += 1
 
 print(df.head())
-df.to_csv('visualisation1.csv',index=False)
+df.to_csv('visualisation_1.csv',index=False)
