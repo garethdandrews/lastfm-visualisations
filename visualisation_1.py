@@ -3,10 +3,10 @@ from helper import unix_to_datetime
 import pandas as pd
 
 # find users top artist
-top_artists = api_service.user_get_top_artists('overall')
-top_artist = top_artists['artist'][0]['name']
+top_artists = api_service.user_get_top_artists('overall',10)
+top_artists = [artist['name'] for artist in top_artists['artist']]
 
-df = pd.DataFrame(columns=['week_from',top_artist])
+df = pd.DataFrame(columns=['week_from']+top_artists)
 
 # find the week the user registered
 info = api_service.user_get_info()
@@ -20,9 +20,13 @@ for n, week in enumerate(weekly_chart_list['chart']):
         user_registered = True
         
     if user_registered:
+        print(i)
         weekly_artist_chart = api_service.user_get_weekly_artist_chart(week)
-        top_artist_plays = next((artist['playcount'] for artist in weekly_artist_chart['artist'] if artist['name'] == top_artist), 0)
-        df.loc[i] = [str(unix_to_datetime(week['from'])), top_artist_plays]
+        row = [str(unix_to_datetime(week['from']))]
+        for top_artist in top_artists:
+            row += [next((artist['playcount'] for artist in weekly_artist_chart['artist'] if artist['name'] == top_artist), 0)]
+        df.loc[i] = row
         i += 1
 
 print(df.head())
+df.to_csv('visualisation1.csv',index=False)

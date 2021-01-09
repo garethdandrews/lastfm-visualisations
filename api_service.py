@@ -9,9 +9,10 @@ def user_get_info():
     })
 
 
-def user_get_top_artists(period):
+def user_get_top_artists(period,limit):
     return get({
         'period': period,
+        'limit': limit,
         'method': 'user.getTopArtists'
     })
 
