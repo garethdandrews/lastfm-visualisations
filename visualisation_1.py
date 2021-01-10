@@ -1,5 +1,5 @@
 import api_service
-from helper import unix_to_datetime
+from helper import unix_to_datetime, get_users_registered_week
 import pandas as pd
 
 # find users top artist
@@ -9,8 +9,7 @@ top_artists = [artist['name'] for artist in top_artists['artist']]
 df = pd.DataFrame(columns=['Week']+top_artists)
 
 # find the week the user registered
-info = api_service.user_get_info()
-registered = int(info['registered']['unixtime'])
+registered = get_users_registered_week()
 weekly_chart_list = api_service.user_get_weekly_chart_list()
 
 i = 0
